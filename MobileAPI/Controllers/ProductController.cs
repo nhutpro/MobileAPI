@@ -26,5 +26,26 @@ namespace MobileAPI.Controllers
                 return NotFound();
             }
         }
+
+        [Route("product/addcart")]
+        [HttpGet]
+        public IHttpActionResult AddCart(string UserID, string ProID)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+                data.ExecuteQuery("EXEC ADDCART '" + UserID + "', '" + ProID + "'");
+                return Ok("done");
+
+
+
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+   
     }
 }
