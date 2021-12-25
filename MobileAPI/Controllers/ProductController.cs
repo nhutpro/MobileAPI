@@ -30,12 +30,12 @@ namespace MobileAPI.Controllers
 
         [Route("product/addcart")]
         [HttpGet]
-        public IHttpActionResult AddCart(string UserID, string ProID)
+        public IHttpActionResult AddCart(int UserID, string ProID)
         {
             try
             {
                 Database.Database data = new Database.Database();
-                data.ExecuteQuery("EXEC ADDCART '" + UserID + "', '" + ProID + "'");
+                data.ExecuteQuery("EXEC ADDCART " + UserID + ", '" + ProID + "'");
                 return Ok("done");
 
 
@@ -140,6 +140,22 @@ namespace MobileAPI.Controllers
             {
                 DataTable result = Database.Database.ReadTable("GetProductsByPriceAsc");
                 return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [Route("product/delete")]
+        [HttpGet]
+        public IHttpActionResult DeleteProduct(string ProID)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+                
+                data.ExecuteQuery($"EXEC DELETEPRODUCT '{ProID}'");
+                return Ok("done");
             }
             catch
             {

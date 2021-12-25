@@ -11,13 +11,13 @@ namespace MobileAPI.Controllers
     {
         [Route("order/all")]
         [HttpGet]
-        public IHttpActionResult allorder(string UserID)
+        public IHttpActionResult allorder(int UserID)
         {
             try
             {
                 Database.Database data = new Database.Database();
 
-                return Ok(data.ExecuteQuery("EXEC GETALLORDERS '" + UserID + "'"));
+                return Ok(data.ExecuteQuery("EXEC GETALLORDERS " + UserID ));
 
 
 
@@ -29,13 +29,49 @@ namespace MobileAPI.Controllers
         }
         [Route("order/running")]
         [HttpGet]
-        public IHttpActionResult shipedorder(string UserID)
+        public IHttpActionResult shipedorder(int UserID)
         {
             try
             {
                 Database.Database data = new Database.Database();
 
-                return Ok(data.ExecuteQuery("EXEC GETORDERS '"+UserID+"', N'Đang giao hàng'"));
+                return Ok(data.ExecuteQuery("EXEC GETORDERS  "+UserID+", N'Đang giao hàng'"));
+
+
+
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [Route("order/allrunning")]
+        [HttpGet]
+        public IHttpActionResult allrunninngorder()
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+
+                return Ok(data.ExecuteQuery("EXEC GETALLRUNNING"));
+
+
+
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [Route("order/allsuccess")]
+        [HttpGet]
+        public IHttpActionResult allsuccessorder(int month, int year)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+
+                return Ok(data.ExecuteQuery($"EXEC GETALLSUCCESS {month}, {year}"));
 
 
 
@@ -47,13 +83,13 @@ namespace MobileAPI.Controllers
         }
         [Route("order/success")]
         [HttpGet]
-        public IHttpActionResult successorder(string UserID)
+        public IHttpActionResult successorder(int UserID)
         {
             try
             {
                 Database.Database data = new Database.Database();
 
-                return Ok(data.ExecuteQuery("EXEC GETORDERS '" + UserID + "', N'Giao hàng thành công'"));
+                return Ok(data.ExecuteQuery("EXEC GETORDERS  " + UserID + ", N'Giao hàng thành công'"));
 
 
 
@@ -65,13 +101,13 @@ namespace MobileAPI.Controllers
         }
         [Route("order/fail")]
         [HttpGet]
-        public IHttpActionResult failorder(string UserID)
+        public IHttpActionResult failorder(int UserID)
         {
             try
             {
                 Database.Database data = new Database.Database();
 
-                return Ok(data.ExecuteQuery("EXEC GETORDERS '" + UserID + "', N'Giao hàng không thành công'"));
+                return Ok(data.ExecuteQuery("EXEC GETORDERS  " + UserID + ", N'Giao hàng không thành công'"));
 
 
 
@@ -102,13 +138,13 @@ namespace MobileAPI.Controllers
         }
         [Route("order/failstatus")]
         [HttpGet]
-        public IHttpActionResult failstatus(string UserID, string OrderID)
+        public IHttpActionResult failstatus(string OrderID)
         {
             try
             {
                 Database.Database data = new Database.Database();
 
-                data.ExecuteQuery($"EXEC FAILSTATUS '{UserID}','{OrderID}'");
+                data.ExecuteQuery($"EXEC FAILSTATUS '{OrderID}'");
                 return Ok("Done");
 
 
@@ -121,13 +157,13 @@ namespace MobileAPI.Controllers
         }
         [Route("order/successstatus")]
         [HttpGet]
-        public IHttpActionResult successstatus(string UserID, string OrderID)
+        public IHttpActionResult successstatus(string OrderID)
         {
             try
             {
                 Database.Database data = new Database.Database();
 
-                data.ExecuteQuery($"EXEC SUCCESSSTATUS '{UserID}','{OrderID}'");
+                data.ExecuteQuery($"EXEC SUCCESSSTATUS '{OrderID}'");
                 return Ok("Done");
 
 

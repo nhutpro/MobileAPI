@@ -29,7 +29,7 @@ namespace MobileAPI.Controllers
         catch
         {
         return NotFound();
-        } }*/
+        } } */
         [Route("api/ServiceController/AddUser")]
         [HttpGet]
         public IHttpActionResult AddUser(string username, string password, string fullname, string email, string phone, string gender, string birthday, string role)
@@ -54,6 +54,23 @@ namespace MobileAPI.Controllers
                 Database.Database data = new Database.Database();
                 data.ExecuteQuery("EXEC CHANGEUSERINFO " + userid + ", '" + fullname + "', '" + email + "', '" + phone + "', '" + gender + "', '" + birthday + "','" + address + "'");
                 return Ok("done");
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [Route("user/getbyid")]
+        [HttpGet]
+        public IHttpActionResult UserID(string UserID)
+        {
+            try
+            {
+               
+         
+                Database.Database data = new Database.Database();
+                return Ok(data.ExecuteQuery($"SELECT * FROM USERS WHERE USERID = {UserID}"));
+
             }
             catch
             {

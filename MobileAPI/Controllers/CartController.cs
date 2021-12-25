@@ -12,7 +12,7 @@ namespace MobileAPI.Controllers
     {
         [Route("cart/delete")]
         [HttpGet]
-        public IHttpActionResult Delete(string userID, string procID)
+        public IHttpActionResult Delete(int userID, string procID)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace MobileAPI.Controllers
         }
         [Route("cart/subtract")]
         [HttpGet]
-        public IHttpActionResult Subtract(string userID, string procID)
+        public IHttpActionResult Subtract(int userID, string procID)
         {
             try
             {
@@ -50,12 +50,12 @@ namespace MobileAPI.Controllers
         }
         [Route("cart/plus")]
         [HttpGet]
-        public IHttpActionResult Plus(string userID, string procID)
+        public IHttpActionResult Plus(int userID, string procID)
         {
             try
             {
                 Database.Database data = new Database.Database();
-                data.ExecuteQuery("EXEC PLUS '" + userID + "', '" + procID + "'");
+                data.ExecuteQuery("EXEC PLUS " + userID + ", '" + procID + "'");
                 return Ok("done");
 
 
@@ -69,12 +69,12 @@ namespace MobileAPI.Controllers
         }
         [Route("cart")]
         [HttpGet]
-        public IHttpActionResult Cart(string userID)
+        public IHttpActionResult Cart( int userID)
         {
             try
             {
                 Database.Database data = new Database.Database();
-                return Ok(data.ExecuteQuery("EXEC GETCART '" + userID + "'"));
+                return Ok(data.ExecuteQuery("EXEC GETCART " + userID ));
             
 
 
