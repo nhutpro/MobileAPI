@@ -162,6 +162,56 @@ namespace MobileAPI.Controllers
                 return NotFound();
             }
         }
+        [Route("product/update")]
+        [HttpGet]
+        public IHttpActionResult updateProduct(string ProID, string name, string brand, float price, string desciption, int stock, string type)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+
+                data.ExecuteQuery($"EXEC UPDATEPRODUCT '{ProID}',N'{name}', N'{brand}',{price}, N'{desciption}',{stock}, N'{type}' ");
+                return Ok("done");
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [Route("product/create")]
+        [HttpGet]
+        public IHttpActionResult createProduct( string name, string image, string brand, float price, string desciption, int stock, string type)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+
+                data.ExecuteQuery($"EXEC CREATEPRODUCT N'{name}', '{image}', N'{brand}',{price}, N'{desciption}',{stock}, N'{type}'");
+                return Ok("done");
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [Route("product/get")]
+        [HttpGet]
+        public IHttpActionResult getProduct(string ProID)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+                return Ok(data.ExecuteQuery($"select * from PRODUCTS where PRODUCTID = '{ProID}'"));
+
+
+
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
 
 
 
