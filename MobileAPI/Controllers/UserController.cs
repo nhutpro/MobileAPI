@@ -77,6 +77,21 @@ namespace MobileAPI.Controllers
                 return NotFound();
             }
         }
+        [Route("api/ServiceController/ChangeUserPassword")]
+        [HttpGet]
+        public IHttpActionResult ChangeUserPassword(string email, string password)
+        {
+            try
+            {
+                Database.Database data = new Database.Database();
+                data.ExecuteQuery("EXEC CHANGEUSERPASSWORD '" + email + "', '" + password + "'");
+                return Ok("done");
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
 
 
     }

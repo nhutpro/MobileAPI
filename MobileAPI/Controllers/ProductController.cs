@@ -89,7 +89,7 @@ namespace MobileAPI.Controllers
             try
             {
                 Database.Database data = new Database.Database();
-                return Ok(data.ExecuteQuery("select * from PRODUCTS where TYPE = 'sua rua mat'"));
+                return Ok(data.ExecuteQuery("select * from PRODUCTS where TYPE = N'sữa rửa mặt'"));
 
 
 
@@ -106,7 +106,7 @@ namespace MobileAPI.Controllers
             try
             {
                 Database.Database data = new Database.Database();
-                return Ok(data.ExecuteQuery("select * from PRODUCTS where TYPE = 'kem chong nang'"));
+                return Ok(data.ExecuteQuery("select * from PRODUCTS where TYPE = N'kem chống nắng'"));
 
 
 
